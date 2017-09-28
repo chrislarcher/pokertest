@@ -4,7 +4,7 @@ using static PokerTest.PokerHands;
 
 namespace PokerTest
 {
-    class PlayersHand
+    public class PlayersHand
     {
         private string PlayersName;
         private List<Card> Cards = new List<Card>();

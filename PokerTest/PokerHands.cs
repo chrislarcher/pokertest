@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PokerTest
 {
-    class PokerHands
+    public class PokerHands
     {
         public enum PokerHand { Flush, ThreeOfAKind, Pair, HighestCard }
 

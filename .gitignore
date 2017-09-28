@@ -1,3 +1,7 @@
 .vs
+/packages/
+/TestResults/
 /PokerTest/bin/
 /PokerTest/obj/
+/UnitTestPokerTest/bin/
+/UnitTestPokerTest/obj/

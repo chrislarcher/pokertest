@@ -1,7 +1,8 @@
-﻿
+﻿using System;
+
 namespace PokerTest
 {
-    static class CardTypes
+    public static class CardTypes
     {
         //I am assuming that ace is higher than king, king is higher than queen, queen is higher than jack and jack is higher than 10.
         //  I am also assuming that I don't need to keep the original input value
@@ -10,7 +11,7 @@ namespace PokerTest
 
         public static Ranks GetFaceCard(string value)
         {
-            Ranks rank = new Ranks();
+            Ranks rank;
 
             switch (value)
             {
@@ -26,6 +27,8 @@ namespace PokerTest
                 case "a":
                     rank = Ranks.ace;
                     break;
+                default:
+                    throw new FormatException("Invalid Face Card");
             }
 
             return rank;

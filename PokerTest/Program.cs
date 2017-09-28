@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PokerTest
 {
@@ -10,12 +11,20 @@ namespace PokerTest
         {
             PlayRound play = new PlayRound();
             string filePath = Properties.Settings.Default.InputFile;
-            PlayerHandsImport playersHandsImport = new PlayerHandsImport(filePath);
 
-            List<PlayersHand> playersHands = playersHandsImport.GetPlayerHands();
-            string Winner = play.GetWinnerName(playersHands);
+            try
+            {
+                PlayerHandsImport playersHandsImport = new PlayerHandsImport(filePath);
+                List<PlayersHand> playersHands = playersHandsImport.GetPlayerHands();
+                string Winner = play.GetWinnerName(playersHands);
 
-            Console.Write(Winner);
+                Console.Write(Winner);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+                System.Environment.Exit(-1);
+            }
         }
     }
 }

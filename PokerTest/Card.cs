@@ -3,7 +3,7 @@ using static PokerTest.CardTypes;
 
 namespace PokerTest
 {
-    class Card
+    public class Card
     {
         private Ranks rank;
         private Suits suit;

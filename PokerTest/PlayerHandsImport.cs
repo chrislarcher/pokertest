@@ -4,7 +4,7 @@ using System.IO;
 
 namespace PokerTest
 {
-    class PlayerHandsImport
+    public class PlayerHandsImport
     {
         List<PlayersHand> playersHands = new List<PlayersHand>();
         int handCount = 0;
@@ -16,18 +16,20 @@ namespace PokerTest
                 using (StreamReader reader = new StreamReader(filePath))
                 {
                     string line;
+                    if (reader.EndOfStream)
+                    {
+                        throw new FileLoadException("No Player Data Found.  Exiting program...");
+                    }
                                         
                     while ((line = reader.ReadLine()) != null)
                     {
-
                         AddPlayersHand(line);
                     }
                 }
             }
-            catch (Exception)
+            catch (FileNotFoundException)
             {
-                Console.Write("No Player Info File Found.  Exiting program...");
-                System.Environment.Exit(-1);
+                throw new FileNotFoundException("No Player Info File Found.  Exiting program...");
             }
         }
 

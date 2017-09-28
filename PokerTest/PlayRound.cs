@@ -5,7 +5,7 @@ using static PokerTest.PokerHands;
 
 namespace PokerTest
 {
-    class PlayRound
+    public class PlayRound
     {
         private List<PlayersHand> PlayersHands = new List<PlayersHand>();
         private string Winner;
