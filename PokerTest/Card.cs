@@ -13,8 +13,7 @@ namespace PokerTest
             //assuming if invalid card is found, game should terminate.
             if (card.Length < 2 || card.Length > 3)
             {
-                Console.Write("Invalid card found.  Exiting program...");
-                System.Environment.Exit(-1);
+                throw new FormatException("Invalid card");
             }
 
             SetSuit(card);
@@ -40,6 +39,10 @@ namespace PokerTest
             {
                 suit = (Suits)enumValue;
             }
+            else
+            {
+                throw new FormatException("Invalid suit");
+            }
         }
 
         private void SetRank(string card)
@@ -51,6 +54,10 @@ namespace PokerTest
                 if (Enum.IsDefined(typeof(Ranks), number))
                 {
                     rank = (Ranks)number;
+                }
+                else
+                {
+                    throw new FormatException("Invalid rank");
                 }
             }
             else

@@ -15,9 +15,7 @@ namespace PokerTest
 
             if (info.Length != 6)
             {
-                //making the assumption that if there is a bad record in the input file the game should terminate.
-                Console.Write("Incorrect number of parameters.  Exiting Program...");
-                System.Environment.Exit(-1);
+                throw new FormatException("Incorrect number of parameters.");
             }
 
             SetPlayersHand(info);
