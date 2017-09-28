@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PokerTest.PokerHands;
 
 namespace PokerTest
@@ -56,17 +54,20 @@ namespace PokerTest
 
             foreach (PlayersHand player in PlayersHands)
             {
-                if (playerWithHighestCard != null)
+                if (playerWithHighestCard == null || playerWithHighestCard.Count == 0)
                 {
-                    if (player.GetHighestCard() > playerWithHighestCard[0].GetHighestCard())
-                    {
-                        playerWithHighestCard = new List<PlayersHand>();
-                        playerWithHighestCard.Add(player);
-                    }
-                    else if (player.GetHighestCard() == playerWithHighestCard[0].GetHighestCard())
-                    {
-                        playerWithHighestCard.Add(player);
-                    }
+                    playerWithHighestCard.Add(player);
+                    continue;
+                }
+               
+                if (player.GetHighestCard() > playerWithHighestCard.First().GetHighestCard())
+                {
+                    playerWithHighestCard = new List<PlayersHand>();
+                    playerWithHighestCard.Add(player);
+                }
+                else if (player.GetHighestCard() == playerWithHighestCard.First().GetHighestCard())
+                {
+                    playerWithHighestCard.Add(player);
                 }
             }
 

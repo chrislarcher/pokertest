@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PokerTest.PokerHands;
 
 namespace PokerTest
@@ -11,7 +8,6 @@ namespace PokerTest
     {
         private string PlayersName;
         private List<Card> Cards = new List<Card>();
-        private PokerHand Hand;
 
         public PlayersHand(string playerInfo)
         {

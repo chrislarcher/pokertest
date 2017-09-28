@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PokerTest.CardTypes;
 
 namespace PokerTest
@@ -38,7 +34,12 @@ namespace PokerTest
         private void SetSuit(string card)
         {
             char[] suitIdentifier = card.ToCharArray();
-            suit = (Suits)suitIdentifier[card.Length-1];
+            Int32 enumValue = (Int32)suitIdentifier[card.Length - 1];
+
+            if (Enum.IsDefined(typeof(Suits), enumValue))
+            {
+                suit = (Suits)enumValue;
+            }
         }
 
         private void SetRank(string card)
@@ -47,7 +48,10 @@ namespace PokerTest
 
             if (int.TryParse(value, out var number))
             {
-                rank = (Ranks)number;
+                if (Enum.IsDefined(typeof(Ranks), number))
+                {
+                    rank = (Ranks)number;
+                }
             }
             else
             {
