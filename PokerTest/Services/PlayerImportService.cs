@@ -1,16 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using PokerTest.Models;
+using PokerTest.Interfaces;
+using System.Collections.Generic;
 
 namespace PokerTest
 {
-    public class PlayerHandsImport
+    public class PlayerImportService : IPlayerImportService
     {
-        List<PlayersHand> _playersHands = new List<PlayersHand>();
+        private IPlayerService _playerService;
+        List<Player> _players = new List<Player>();
         int _handCount = 0;
 
-        public PlayerHandsImport(string filePath)
+        public PlayerImportService(IPlayerService playerService)
         {
+            _playerService = playerService;
+        }
+
+        public List<Player> GetPlayers()
+        {
+            string filePath = Properties.Settings.Default.InputFile;
             try
             {
                 using (StreamReader reader = new StreamReader(filePath))
@@ -25,9 +34,11 @@ namespace PokerTest
                     {
                         playerHand = playerHand + ", " + reader.ReadLine();
 
-                        AddPlayersHand(playerHand);
+                        AddPlayer(playerHand);
                     }
                 }
+
+                return _players;
             }
             catch (FileNotFoundException)
             {
@@ -35,19 +46,15 @@ namespace PokerTest
             }
         }
 
-        public List<PlayersHand> GetPlayerHands()
-        {
-            return _playersHands;
-        }
-
-        private void AddPlayersHand(string handInfo)
+        private void AddPlayer(string playerInfo)
         {
             _handCount++;
 
             try
             {
-                PlayersHand playersHand = new PlayersHand(handInfo);
-                _playersHands.Add(playersHand);
+
+                Player player = _playerService.GetPlayer(playerInfo);
+                _players.Add(player);
             }
             catch (FormatException e)
             {

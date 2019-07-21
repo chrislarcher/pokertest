@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PokerTest.Interfaces;
+using PokerTest.Models;
+using PokerTest.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -9,14 +12,19 @@ namespace PokerTest
         //I assume that in the event of a tie, we won't be comparing to find which hand has better cards  
         static void Main(string[] args)
         {
-            PlayRound play = new PlayRound();
+            ICardTypeService cardTypeService = new CardTypeService();
+            ICardService cardService = new CardService(cardTypeService);
+            IPlayerService playerService = new PlayerService(cardService);
+            IPlayerImportService playerImportService = new PlayerImportService(playerService);
+            IPokerHandService pokerHandService = new PokerHandService(cardService);
+            IPokerService pokerService = new PokerService(pokerHandService, playerService, cardService);
+
             string filePath = Properties.Settings.Default.InputFile;
 
             try
             {
-                PlayerHandsImport playersHandsImport = new PlayerHandsImport(filePath);
-                List<PlayersHand> playersHands = playersHandsImport.GetPlayerHands();
-                string Winner = play.GetWinnerName(playersHands);
+                List<Player> players = playerImportService.GetPlayers();
+                string Winner = pokerService.GetWinnerName(players);
 
                 Console.Write(Winner);
             }

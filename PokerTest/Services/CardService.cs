@@ -1,15 +1,25 @@
 ﻿using System;
-using static PokerTest.CardTypes;
+using PokerTest.Models;
+using PokerTest.Interfaces;
+using System.Collections.Generic;
+using static PokerTest.Enums.CardTypes;
 
-namespace PokerTest
+namespace PokerTest.Services
 {
-    public class Card
+    public class CardService : ICardService
     {
-        private Ranks _rank;
-        private Suits _suit;
+        private ICardTypeService _cardTypeService;
+        private Card _card;
 
-        public Card(string card)
+        public CardService(ICardTypeService cardTypeService)
         {
+            _cardTypeService = cardTypeService;
+        }
+
+        public Card GetCard(string card)
+        {
+            _card = new Card();
+
             //assuming if invalid card is found, game should terminate.
             if (card.Length < 2 || card.Length > 3)
             {
@@ -17,17 +27,24 @@ namespace PokerTest
             }
 
             SetSuit(card);
-            SetRank(card);           
+            SetRank(card);
+
+            return _card;
         }
 
-        public Suits GetSuit()
+        public int GetHighestCard(List<Card> cards)
         {
-            return _suit;
-        }
+            int HighestCard = 0;
 
-        public Ranks GetRank()
-        {
-            return _rank;
+            foreach (Card card in cards)
+            {
+                if ((int)card.Rank > HighestCard)
+                {
+                    HighestCard = (int)card.Rank;
+                }
+            }
+
+            return HighestCard;
         }
 
         private void SetSuit(string card)
@@ -37,7 +54,7 @@ namespace PokerTest
 
             if (Enum.IsDefined(typeof(Suits), enumValue))
             {
-                _suit = (Suits)enumValue;
+                _card.Suit = (Suits)enumValue;
             }
             else
             {
@@ -53,7 +70,7 @@ namespace PokerTest
             {
                 if (Enum.IsDefined(typeof(Ranks), number))
                 {
-                    _rank = (Ranks)number;
+                    _card.Rank = (Ranks)number;
                 }
                 else
                 {
@@ -62,7 +79,7 @@ namespace PokerTest
             }
             else
             {
-                _rank = GetFaceCard(value);
+                _card.Rank = _cardTypeService.GetFaceCard(value);
             }
         }
     }

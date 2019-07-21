@@ -1,14 +1,21 @@
-﻿using System;
+﻿using PokerTest.Interfaces;
+using PokerTest.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using static PokerTest.Enums.PokerHands;
 
-namespace PokerTest
+namespace PokerTest.Services
 {
-    public class PokerHands
+    public class PokerHandService : IPokerHandService
     {
-        public enum PokerHand { Flush, ThreeOfAKind, Pair, HighestCard }
-
+        private ICardService _cardService;
         private List<Card> _hand = new List<Card>();
+
+        public PokerHandService(ICardService cardService)
+        {
+            _cardService = cardService;
+        }
 
         public PokerHand GetPokerHand(List<Card> cards) 
         {
@@ -41,7 +48,7 @@ namespace PokerTest
             {
                 if (previous != null)
                 {
-                    if (!previous.GetSuit().Equals(card.GetSuit()))
+                    if (!previous.Suit.Equals(card.Suit))
                     {
                         return false;
                     }
@@ -56,24 +63,23 @@ namespace PokerTest
         //Making the assupmtion that if there are more than one pair in the hand, will still count as one pair.
         private Boolean IsPair()
         {
-            return 2 == NumberOfMatchingCards();
+            return NumberOfMatchingCards() == 2;
         }
 
-        //I'm making an assumption that anything over 3 of the same kind is three of a kind.
-            //There is no four of a kind defined.
+        //Making the assumption that I'm specifically checking for 3 matching cards.
         private Boolean IsThreeOfAKind()
         {
-            return NumberOfMatchingCards() > 2;
+            return NumberOfMatchingCards() == 3;
         }
 
         //I'm assuming that we are looking for the highest count.
         private int NumberOfMatchingCards()
         {
             var cardCount = from card in _hand
-                            group card by card.GetRank() into g
+                            group card by card.Rank into g
                     let count = g.Count()
                     orderby count descending
-                    select new { Name = g.Key, Count = count, ID = g.First().GetRank() };
+                    select new { Name = g.Key, Count = count, ID = g.First().Rank };
 
             return cardCount.First().Count;
         }
