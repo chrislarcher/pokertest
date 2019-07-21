@@ -5,8 +5,8 @@ namespace PokerTest
 {
     public class Card
     {
-        private Ranks rank;
-        private Suits suit;
+        private Ranks _rank;
+        private Suits _suit;
 
         public Card(string card)
         {
@@ -22,22 +22,22 @@ namespace PokerTest
 
         public Suits GetSuit()
         {
-            return suit;
+            return _suit;
         }
 
         public Ranks GetRank()
         {
-            return rank;
+            return _rank;
         }
 
         private void SetSuit(string card)
         {
             char[] suitIdentifier = card.ToCharArray();
-            Int32 enumValue = (Int32)suitIdentifier[card.Length - 1];
+            Int32 enumValue = char.ToLower(suitIdentifier[card.Length - 1]);
 
             if (Enum.IsDefined(typeof(Suits), enumValue))
             {
-                suit = (Suits)enumValue;
+                _suit = (Suits)enumValue;
             }
             else
             {
@@ -49,11 +49,11 @@ namespace PokerTest
         {
             string value = card.Substring(0, card.Length - 1);
 
-            if (int.TryParse(value, out var number))
+            if (int.TryParse(value, out int number))
             {
                 if (Enum.IsDefined(typeof(Ranks), number))
                 {
-                    rank = (Ranks)number;
+                    _rank = (Ranks)number;
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace PokerTest
             }
             else
             {
-                rank = GetFaceCard(value);
+                _rank = GetFaceCard(value);
             }
         }
     }

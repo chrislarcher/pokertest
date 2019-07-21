@@ -7,28 +7,29 @@ namespace PokerTest
 {
     public class PlayRound
     {
-        private List<PlayersHand> PlayersHands = new List<PlayersHand>();
-        private string Winner;
+        private List<PlayersHand> _playersHands = new List<PlayersHand>();
+        private List<PlayersHand> _winner = new List<PlayersHand>();
 
         public string GetWinnerName(List<PlayersHand> playersHands)
         {
-            PlayersHands = playersHands;
+            _playersHands = playersHands;
 
            if (PlayersWith(PokerHand.Flush))
            {
-                return Winner;
+                return GetWinners();
            }
            else if (PlayersWith(PokerHand.ThreeOfAKind))
            {
-                return Winner;
+                return GetWinners();
            }
            else if (PlayersWith(PokerHand.Pair))
            {
-                return Winner;
+                return GetWinners();
            }
            else
-            {
-                return PlayerWithHighestCard();
+           {
+                PlayerWithHighestCard(_playersHands);
+                return GetWinners();
             }
         }
 
@@ -36,11 +37,11 @@ namespace PokerTest
         {
             Boolean playersFound = false;
 
-            foreach (PlayersHand player in PlayersHands)
+            foreach (PlayersHand player in _playersHands)
             {
                 if (player.GetHand() == pokerHand)
                 {
-                    Winner = Winner + " " + player.GetName();
+                    _winner.Add(player);
                     playersFound = true;
                 }
             }
@@ -48,11 +49,29 @@ namespace PokerTest
             return playersFound;
         }
 
-        private string PlayerWithHighestCard()
+        private string GetWinners()
+        {
+            if (_winner.Count() == 1)
+            {
+                return _winner.FirstOrDefault().GetName();
+            }
+
+            PlayerWithHighestCard(_winner);
+            string winners = "";
+
+            foreach (PlayersHand player in _winner)
+            {
+                winners = winners == "" ? player.GetName() : winners + ", " + player.GetName();
+            }
+
+            return winners;
+        }
+
+        private void PlayerWithHighestCard(List<PlayersHand> playersHand)
         {
             List<PlayersHand> playerWithHighestCard = new List<PlayersHand>();
 
-            foreach (PlayersHand player in PlayersHands)
+            foreach (PlayersHand player in playersHand)
             {
                 if (playerWithHighestCard == null || playerWithHighestCard.Count == 0)
                 {
@@ -71,12 +90,7 @@ namespace PokerTest
                 }
             }
 
-            foreach (PlayersHand player in playerWithHighestCard)
-            {
-                Winner = Winner + " " + player.GetName();
-            }
-
-            return Winner;
+            _winner = playerWithHighestCard;
         }
     }
 }

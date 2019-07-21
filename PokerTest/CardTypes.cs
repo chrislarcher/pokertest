@@ -13,7 +13,7 @@ namespace PokerTest
         {
             Ranks rank;
 
-            switch (value)
+            switch (value.ToLower())
             {
                 case "j":
                     rank = Ranks.jack;

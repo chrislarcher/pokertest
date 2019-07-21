@@ -1,1 +1,2 @@
-﻿Billy, 2d, 3h, qh, kh, ah
+﻿Billy
+2D, 3H, QH, KH, AH

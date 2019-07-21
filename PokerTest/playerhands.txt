@@ -1,3 +1,6 @@
-chris, 2d, 3d, qd, kd, ad
-Shannon, 2d, 3h, qh, kh, ah
-Darrell, 2d, 3h, 4s, 5c, 6s
+Joe
+8D, 8D, AD, QD, JD
+Bob
+AS, QS, 8S, 6S, 4S
+Sally
+4H, 4H, 3H, QH, 8H

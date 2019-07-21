@@ -6,8 +6,8 @@ namespace PokerTest
 {
     public class PlayersHand
     {
-        private string PlayersName;
-        private List<Card> Cards = new List<Card>();
+        private string _playersName;
+        private List<Card> _cards = new List<Card>();
 
         public PlayersHand(string playerInfo)
         {
@@ -23,20 +23,20 @@ namespace PokerTest
 
         public string GetName()
         {
-            return PlayersName;
+            return _playersName;
         }
 
         public PokerHand GetHand()
         {
             PokerHands pokerHands = new PokerHands();
-            return pokerHands.GetPokerHand(Cards);
+            return pokerHands.GetPokerHand(_cards);
         }
 
         public int GetHighestCard()
         {
             int HighestCard = 0;
 
-            foreach (Card card in Cards)
+            foreach (Card card in _cards)
             {
                 if ((int)card.GetRank() > HighestCard)
                 { 
@@ -55,7 +55,7 @@ namespace PokerTest
 
         private void SetPlayersHand(string[] info)
         {
-            PlayersName = info[0];
+            _playersName = info[0];
 
             for (int x = 1; x < info.Length; x++)
             {
@@ -65,7 +65,7 @@ namespace PokerTest
         
         private void AddCard(string cardInfo)
         {
-            Cards.Add(new Card(cardInfo));
+            _cards.Add(new Card(cardInfo));
         }
     }
 }

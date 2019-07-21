@@ -6,8 +6,8 @@ namespace PokerTest
 {
     public class PlayerHandsImport
     {
-        List<PlayersHand> playersHands = new List<PlayersHand>();
-        int handCount = 0;
+        List<PlayersHand> _playersHands = new List<PlayersHand>();
+        int _handCount = 0;
 
         public PlayerHandsImport(string filePath)
         {
@@ -15,15 +15,17 @@ namespace PokerTest
             {
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    string line;
+                    string playerHand;
                     if (reader.EndOfStream)
                     {
                         throw new FileLoadException("No Player Data Found.  Exiting program...");
                     }
                                         
-                    while ((line = reader.ReadLine()) != null)
+                    while ((playerHand = reader.ReadLine()) != null)
                     {
-                        AddPlayersHand(line);
+                        playerHand = playerHand + ", " + reader.ReadLine();
+
+                        AddPlayersHand(playerHand);
                     }
                 }
             }
@@ -35,21 +37,21 @@ namespace PokerTest
 
         public List<PlayersHand> GetPlayerHands()
         {
-            return playersHands;
+            return _playersHands;
         }
 
         private void AddPlayersHand(string handInfo)
         {
-            handCount++;
+            _handCount++;
 
             try
             {
                 PlayersHand playersHand = new PlayersHand(handInfo);
-                playersHands.Add(playersHand);
+                _playersHands.Add(playersHand);
             }
             catch (FormatException e)
             {
-                Console.Write(e.Message + " Found at line " + handCount);
+                Console.Write(e.Message + " Found at line " + _handCount);
             }
         }
     }

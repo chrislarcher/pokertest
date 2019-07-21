@@ -8,11 +8,11 @@ namespace PokerTest
     {
         public enum PokerHand { Flush, ThreeOfAKind, Pair, HighestCard }
 
-        private List<Card> Hand = new List<Card>();
+        private List<Card> _hand = new List<Card>();
 
         public PokerHand GetPokerHand(List<Card> cards) 
         {
-            Hand = cards;
+            _hand = cards;
 
             if (IsFlush())
             {
@@ -37,7 +37,7 @@ namespace PokerTest
         {
             Card previous = null;
 
-            foreach (Card card in Hand)
+            foreach (Card card in _hand)
             {
                 if (previous != null)
                 {
@@ -69,8 +69,8 @@ namespace PokerTest
         //I'm assuming that we are looking for the highest count.
         private int NumberOfMatchingCards()
         {
-            var cardCount = from card in Hand
-                    group card by card.GetRank() into g
+            var cardCount = from card in _hand
+                            group card by card.GetRank() into g
                     let count = g.Count()
                     orderby count descending
                     select new { Name = g.Key, Count = count, ID = g.First().GetRank() };
