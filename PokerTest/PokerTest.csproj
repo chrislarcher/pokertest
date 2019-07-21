@@ -52,6 +52,7 @@
     <Compile Include="Interfaces\IPokerService.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Hand.cs" />
     <Compile Include="Services\PlayerImportService.cs" />
     <Compile Include="Services\PokerService.cs" />
     <Compile Include="Services\CardTypeService.cs" />

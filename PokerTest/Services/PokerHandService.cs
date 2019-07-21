@@ -3,6 +3,7 @@ using PokerTest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static PokerTest.Enums.CardTypes;
 using static PokerTest.Enums.PokerHands;
 
 namespace PokerTest.Services
@@ -10,32 +11,41 @@ namespace PokerTest.Services
     public class PokerHandService : IPokerHandService
     {
         private ICardService _cardService;
-        private List<Card> _hand = new List<Card>();
+
+        private Hand _hand;
+        private DuplicateCard _duplicateCard;
 
         public PokerHandService(ICardService cardService)
         {
             _cardService = cardService;
         }
 
-        public PokerHand GetPokerHand(List<Card> cards) 
+        public Hand GetPokerHand(Hand hand) 
         {
-            _hand = cards;
+            _hand = hand;
+            GetMatchingCards();
 
             if (IsFlush())
             {
-                return PokerHand.Flush;
+                _hand.PokerHand = PokerHand.Flush;
+                return _hand;
             }
             else if(IsThreeOfAKind())
             {
-                return PokerHand.ThreeOfAKind;
+                _hand.PokerHand = PokerHand.ThreeOfAKind;
+                _hand.DuplicatesRank = _duplicateCard.Rank;
+                return _hand;
             }
             else if (IsPair())
             {
-                return PokerHand.Pair;
+                _hand.PokerHand = PokerHand.Pair;
+                _hand.DuplicatesRank = _duplicateCard.Rank;
+                return _hand;
             }
             else
             {
-                return PokerHand.HighestCard;
+                _hand.PokerHand = PokerHand.HighestCard;
+                return _hand;
             }
         }
 
@@ -44,7 +54,7 @@ namespace PokerTest.Services
         {
             Card previous = null;
 
-            foreach (Card card in _hand)
+            foreach (Card card in _hand.Cards)
             {
                 if (previous != null)
                 {
@@ -61,27 +71,33 @@ namespace PokerTest.Services
         } 
 
         //Making the assupmtion that if there are more than one pair in the hand, will still count as one pair.
-        private Boolean IsPair()
+        private bool IsPair()
         {
-            return NumberOfMatchingCards() == 2;
+            return _duplicateCard.Count == 2;
         }
 
-        //Making the assumption that I'm specifically checking for 3 matching cards.
-        private Boolean IsThreeOfAKind()
+        //Making the assumption that more than two of the same card counts as three of a kind.
+        //  Four of a kind is not valid in this game. If it was added in the future, and the 
+        //  the player had four of a kind, this code wouldn't trigger.
+        private bool IsThreeOfAKind()
         {
-            return NumberOfMatchingCards() == 3;
+            return _duplicateCard.Count > 2;
         }
 
         //I'm assuming that we are looking for the highest count.
-        private int NumberOfMatchingCards()
+        private void GetMatchingCards()
         {
-            var cardCount = from card in _hand
-                            group card by card.Rank into g
-                    let count = g.Count()
-                    orderby count descending
-                    select new { Name = g.Key, Count = count, ID = g.First().Rank };
-
-            return cardCount.First().Count;
+            _duplicateCard = _hand.Cards.GroupBy(x => x.Rank).Where(g => g.Count() > 1)
+                                             .Select(x => new DuplicateCard { Rank = x.Key, Count = x.Count() })
+                                             .OrderByDescending(x => x.Count)
+                                             .ThenByDescending(x => x.Rank)
+                                             .FirstOrDefault();
         }
+    }
+
+    public class DuplicateCard
+    {
+        public Ranks Rank { get; set; }
+        public int Count { get; set; }
     }
 }

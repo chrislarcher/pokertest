@@ -2,18 +2,20 @@
 using PokerTest.Models;
 using PokerTest.Interfaces;
 using System.Collections.Generic;
-using static PokerTest.Enums.PokerHands;
+using System.Linq;
 
 namespace PokerTest.Services
 {
     public class PlayerService : IPlayerService
     {
         private ICardService _cardService;
+        private IPokerHandService _pokerHandService;
         private Player _player;
 
-        public PlayerService(ICardService cardService)
+        public PlayerService(ICardService cardService, IPokerHandService pokerHandService)
         {
             _cardService = cardService;
+            _pokerHandService = pokerHandService;
         }
 
         public Player GetPlayer(string playerInfo)
@@ -27,7 +29,8 @@ namespace PokerTest.Services
                 throw new FormatException("Incorrect number of parameters.");
             }
 
-            SetPlayersHand(info);
+            SetPlayersCards(info);
+            SortHand();
 
             return _player;
         }
@@ -38,21 +41,32 @@ namespace PokerTest.Services
             return info.Split(',');
         }
 
-        private void SetPlayersHand(string[] info)
+        private void SetPlayersCards(string[] info)
         {
             _player.Name = info[0];
-            _player.Cards = new List<Card>();
+            _player.Hand.Cards = new List<Card>();
 
             for (int x = 1; x < info.Length; x++)
             {
                 AddCard(info[x]);
             }
         }
-        
+
+        private void SetPlayersHand()
+        {
+            _player.Hand = _pokerHandService.GetPokerHand(_player.Hand);
+
+        }
+
         private void AddCard(string cardInfo)
         {
             Card card = _cardService.GetCard(cardInfo);
-            _player.Cards.Add(card);
+            _player.Hand.Cards.Add(card);
+        }
+
+        private void SortHand()
+        {
+            _player.Hand.Cards = _player.Hand.Cards.OrderByDescending(x => x.Rank).ToList();
         }
     }
 }
