@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PokerTest.Tests
 {
     [TestClass()]
-    public class PokerServiceTwoPairTest
+    public class PokerServicePairTest
     {
         ICardTypeService cardTypeService;
         ICardService cardService;
@@ -17,7 +17,7 @@ namespace PokerTest.Tests
         IPokerService pokerService;
         IHighestCardService highestCardService;
 
-        public PokerServiceTwoPairTest()
+        public PokerServicePairTest()
         {
             cardTypeService = new CardTypeService();
             cardService = new CardService(cardTypeService);

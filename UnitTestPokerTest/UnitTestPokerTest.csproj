@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PokerServiceHighestCardTest.cs" />
-    <Compile Include="PokerServiceTwoPairTest.cs" />
+    <Compile Include="PokerServicePairTest.cs" />
     <Compile Include="PokerServiceThreeOfAKindTest.cs" />
     <Compile Include="PokerServiceFlushTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
