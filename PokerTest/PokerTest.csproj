@@ -42,22 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\CardTypes.cs" />
-    <Compile Include="Enums\PokerHands.cs" />
-    <Compile Include="Interfaces\ICardService.cs" />
-    <Compile Include="Interfaces\ICardTypeService.cs" />
-    <Compile Include="Interfaces\IPlayerImportService.cs" />
-    <Compile Include="Interfaces\IPlayerService.cs" />
-    <Compile Include="Interfaces\IPokerHandService.cs" />
-    <Compile Include="Interfaces\IPokerService.cs" />
-    <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\Hand.cs" />
-    <Compile Include="Services\PlayerImportService.cs" />
-    <Compile Include="Services\PokerService.cs" />
-    <Compile Include="Services\CardTypeService.cs" />
-    <Compile Include="Services\PlayerService.cs" />
-    <Compile Include="Services\PokerHandService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -65,7 +49,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Services\CardService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,6 +62,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PokerGame.Models\PokerGame.Models.csproj">
+      <Project>{c9543e78-0ae8-4604-b10a-697ea36148bf}</Project>
+      <Name>PokerGame.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerGame.Services\PokerGame.Services.csproj">
+      <Project>{f36ce8ba-15ed-47dd-874f-79521614ea68}</Project>
+      <Name>PokerGame.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

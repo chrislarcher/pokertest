@@ -58,9 +58,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokerTest\PokerTest.csproj">
-      <Project>{21E14C60-925B-4F78-905A-7C0AACE6AE43}</Project>
-      <Name>PokerTest</Name>
+    <ProjectReference Include="..\PokerGame.Models\PokerGame.Models.csproj">
+      <Project>{c9543e78-0ae8-4604-b10a-697ea36148bf}</Project>
+      <Name>PokerGame.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerGame.Services\PokerGame.Services.csproj">
+      <Project>{f36ce8ba-15ed-47dd-874f-79521614ea68}</Project>
+      <Name>PokerGame.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

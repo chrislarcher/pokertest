@@ -1,0 +1,12 @@
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\bin\Debug\netstandard2.0\PokerGame.Services.deps.json
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\bin\Debug\netstandard2.0\PokerGame.Services.dll
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\bin\Debug\netstandard2.0\PokerGame.Services.pdb
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\bin\Debug\netstandard2.0\PokerGame.Models.dll
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\bin\Debug\netstandard2.0\PokerGame.Models.pdb
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.csprojAssemblyReference.cache
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.csproj.CoreCompileInputs.cache
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.AssemblyInfoInputs.cache
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.AssemblyInfo.cs
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.csproj.CopyComplete
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.dll
+C:\Users\chris\source\repos\PokerTest\PokerGame.Services\obj\Debug\netstandard2.0\PokerGame.Services.pdb

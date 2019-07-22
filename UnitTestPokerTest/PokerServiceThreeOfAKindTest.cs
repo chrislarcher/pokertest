@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerTest.Interfaces;
-using PokerTest.Models;
-using PokerTest.Services;
+﻿using PokerGame.Models;
+using PokerGame.Services;
 using System.Collections.Generic;
+using PokerGame.Services.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PokerTest.Tests
 {
@@ -15,6 +15,7 @@ namespace PokerTest.Tests
         IPlayerService playerService;
         IPlayerImportService playerImportService;
         IPokerService pokerService;
+        IHighestCardService highestCardService;
 
         public PokerServiceThreeOfAKindTest()
         {
@@ -23,7 +24,8 @@ namespace PokerTest.Tests
             pokerHandService = new PokerHandService(cardService);
             playerService = new PlayerService(cardService, pokerHandService);
             playerImportService = new PlayerImportService(playerService);
-            pokerService = new PokerService(pokerHandService, playerService, cardService);
+            highestCardService = new HighestCardService();
+            pokerService = new PokerService(highestCardService, playerService, cardService);
         }
 
         [TestMethod()]
