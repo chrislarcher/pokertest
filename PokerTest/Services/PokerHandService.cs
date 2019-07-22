@@ -1,7 +1,6 @@
 ﻿using PokerTest.Interfaces;
 using PokerTest.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using static PokerTest.Enums.CardTypes;
 using static PokerTest.Enums.PokerHands;
