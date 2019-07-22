@@ -1,6 +1,6 @@
 Joe
-8D, 8D, AD, QD, JD
+8S, 8D, AD, QD, JD
 Bob
-AS, QS, 8S, 6S, 4S
+AH, QS, 8S, 6S, 4S
 Sally
-4H, 4H, AH, QH, 8H
+8C, 8H, AH, QH, 6H

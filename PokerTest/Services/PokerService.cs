@@ -95,30 +95,15 @@ namespace PokerTest
         {
             List<Player> playerWithHighestCard = new List<Player>();
 
-            foreach (Player player in _winners)
+            Ranks highestRank = _winners.OrderByDescending(x => x.Hand.DuplicatesRank)
+                                        .Select(d => d.Hand.DuplicatesRank)
+                                        .FirstOrDefault();
+
+            playerWithHighestCard = _winners.Where(x => x.Hand.DuplicatesRank == highestRank).ToList();
+        
+            foreach (Player player in playerWithHighestCard)
             {
-                int playerHighCard = (int)player.Hand.DuplicatesRank;
-                player.Hand.Cards = player.Hand.Cards.Where(x => (int)x.Rank != playerHighCard).ToList();
-
-                if (playerWithHighestCard == null || playerWithHighestCard.Count == 0)
-                {
-                    playerWithHighestCard.Add(player);
-                    continue;
-                }
-
-                int currentHighCard = (int) playerWithHighestCard.First().Hand.DuplicatesRank;
-
-                if (playerHighCard > currentHighCard)
-                {
-                    playerWithHighestCard = new List<Player>();
-                    playerWithHighestCard.Add(player);
-                }
-                else if (playerHighCard == currentHighCard)
-                {
-                    playerWithHighestCard.Add(player);
-                }
-
-                player.Hand.Cards = player.Hand.Cards.Where(x => (int) x.Rank != playerHighCard).ToList();
+                player.Hand.Cards = player.Hand.Cards.Where(x => x.Rank != highestRank).ToList();
             }
 
             _winners = playerWithHighestCard;
@@ -157,27 +142,11 @@ namespace PokerTest
         {
             List<Player> playerWithHighestCard = new List<Player>();
 
-            foreach (Player player in players)
-            {
-                if (playerWithHighestCard == null || playerWithHighestCard.Count == 0)
-                {
-                    playerWithHighestCard.Add(player);
-                    continue;
-                }
+            Ranks highestRank = players.OrderByDescending(x => x.Hand.Cards.First().Rank)
+                                       .Select(d => d.Hand.Cards.First().Rank)
+                                       .FirstOrDefault();
 
-                int playerHighCard = (int) player.Hand.Cards.Select(x => x.Rank).FirstOrDefault();
-                int currentHighCard = (int) playerWithHighestCard.First().Hand.Cards.Select(x => x.Rank).FirstOrDefault();
-
-                if (playerHighCard > currentHighCard)
-                {
-                    playerWithHighestCard = new List<Player>();
-                    playerWithHighestCard.Add(player);
-                }
-                else if (playerHighCard == currentHighCard)
-                {
-                    playerWithHighestCard.Add(player);
-                }
-            }
+            playerWithHighestCard = players.Where(x => x.Hand.Cards.First().Rank == highestRank).ToList();
 
             return playerWithHighestCard;
         }
