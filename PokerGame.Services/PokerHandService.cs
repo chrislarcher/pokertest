@@ -48,7 +48,6 @@ namespace PokerGame.Services
             }
         }
 
-        //guessing that we only care if its a flush, doesn't matter if its a straight flush or royal flush.
         private Boolean IsFlush()
         {
             Card previous = null;
@@ -67,17 +66,16 @@ namespace PokerGame.Services
             }
 
             return true;
-        } 
+        }
 
-        //Making the assupmtion that if there are more than one pair in the hand, will still count as one pair.
+        //If there are more than one pair in the hand, we will count it as a pair.Two pairs isn’t valid, I don’t think we should ignore the pair.
         private bool IsPair()
         {
             return _duplicateCard?.Count == 2;
         }
 
-        //Making the assumption that more than two of the same card counts as three of a kind.
-        //  Four of a kind is not valid in this game. If it was added in the future, and the 
-        //  the player had four of a kind, this code wouldn't trigger.
+        //Any more than two of the same card rank would count as three of a kind. Four of a kind is not valid, 
+        //  I don’t think we should ignore the first three cards.
         private bool IsThreeOfAKind()
         {
             return _duplicateCard?.Count > 2;
