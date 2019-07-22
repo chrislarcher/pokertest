@@ -73,7 +73,7 @@ namespace PokerTest.Services
         //Making the assupmtion that if there are more than one pair in the hand, will still count as one pair.
         private bool IsPair()
         {
-            return _duplicateCard.Count == 2;
+            return _duplicateCard?.Count == 2;
         }
 
         //Making the assumption that more than two of the same card counts as three of a kind.
@@ -81,7 +81,7 @@ namespace PokerTest.Services
         //  the player had four of a kind, this code wouldn't trigger.
         private bool IsThreeOfAKind()
         {
-            return _duplicateCard.Count > 2;
+            return _duplicateCard?.Count > 2;
         }
 
         //I'm assuming that we are looking for the highest count.

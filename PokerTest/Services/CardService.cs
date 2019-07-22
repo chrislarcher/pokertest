@@ -1,7 +1,6 @@
 ﻿using System;
 using PokerTest.Models;
 using PokerTest.Interfaces;
-using System.Collections.Generic;
 using static PokerTest.Enums.CardTypes;
 
 namespace PokerTest.Services
@@ -30,21 +29,6 @@ namespace PokerTest.Services
             SetRank(card);
 
             return _card;
-        }
-
-        public int GetHighestCard(List<Card> cards)
-        {
-            int HighestCard = 0;
-
-            foreach (Card card in cards)
-            {
-                if ((int)card.Rank > HighestCard)
-                {
-                    HighestCard = (int)card.Rank;
-                }
-            }
-
-            return HighestCard;
         }
 
         private void SetSuit(string card)

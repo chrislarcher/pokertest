@@ -10,7 +10,6 @@ namespace PokerTest
 {
     public class PokerService : IPokerService
     {
-        private IPokerHandService _pokerHandService;
         private IPlayerService _playerService;
         private ICardService _cardService;
 
@@ -21,7 +20,6 @@ namespace PokerTest
                             IPlayerService playerService,
                             ICardService cardService)
         {
-            _pokerHandService = pokerHandService;
             _playerService = playerService;
             _cardService = cardService;
         }
@@ -74,7 +72,12 @@ namespace PokerTest
 
             if (ofAKind)
             {
-                _winners.
+                PlayerWithHighestPairs();
+
+                if (_winners.Count() == 1 )
+                {
+                    return _winners.FirstOrDefault().Name;
+                }
             }
 
             PlayerWithHighestCard(_winners);
@@ -87,6 +90,39 @@ namespace PokerTest
 
             return winners;
         }
+
+        private void PlayerWithHighestPairs()
+        {
+            List<Player> playerWithHighestCard = new List<Player>();
+
+            foreach (Player player in _winners)
+            {
+                int playerHighCard = (int)player.Hand.DuplicatesRank;
+                player.Hand.Cards = player.Hand.Cards.Where(x => (int)x.Rank != playerHighCard).ToList();
+
+                if (playerWithHighestCard == null || playerWithHighestCard.Count == 0)
+                {
+                    playerWithHighestCard.Add(player);
+                    continue;
+                }
+
+                int currentHighCard = (int) playerWithHighestCard.First().Hand.DuplicatesRank;
+
+                if (playerHighCard > currentHighCard)
+                {
+                    playerWithHighestCard = new List<Player>();
+                    playerWithHighestCard.Add(player);
+                }
+                else if (playerHighCard == currentHighCard)
+                {
+                    playerWithHighestCard.Add(player);
+                }
+
+                player.Hand.Cards = player.Hand.Cards.Where(x => (int) x.Rank != playerHighCard).ToList();
+            }
+
+            _winners = playerWithHighestCard;
+        }
        
         private void PlayerWithHighestCard(List<Player> players)
         {
@@ -98,9 +134,9 @@ namespace PokerTest
                 tiedPlayers = players.Select(p => new Player
                 {
                     Name = p.Name,
-                    Hand = p.Hand.Cards.Skip(count)
-                                   .Take(1)
-                                   .ToList()
+                    Hand = new Hand { Cards = p.Hand.Cards.Skip(count)
+                                                    .Take(1)
+                                                    .ToList() }
                 })
                 .Where(p => tiedPlayers.Select(t=> t.Name).ToList().Contains(p.Name))
                 .ToList();
@@ -128,9 +164,9 @@ namespace PokerTest
                     playerWithHighestCard.Add(player);
                     continue;
                 }
-                /*TODO: DOn't need to use the get highest card*/
-                int playerHighCard = _cardService.GetHighestCard(player.Hand.Cards);
-                int currentHighCard = _cardService.GetHighestCard(playerWithHighestCard.First().Hand.Cards);
+
+                int playerHighCard = (int) player.Hand.Cards.Select(x => x.Rank).FirstOrDefault();
+                int currentHighCard = (int) playerWithHighestCard.First().Hand.Cards.Select(x => x.Rank).FirstOrDefault();
 
                 if (playerHighCard > currentHighCard)
                 {

@@ -14,9 +14,9 @@ namespace PokerTest
         {
             ICardTypeService cardTypeService = new CardTypeService();
             ICardService cardService = new CardService(cardTypeService);
-            IPlayerService playerService = new PlayerService(cardService);
-            IPlayerImportService playerImportService = new PlayerImportService(playerService);
             IPokerHandService pokerHandService = new PokerHandService(cardService);
+            IPlayerService playerService = new PlayerService(cardService, pokerHandService);
+            IPlayerImportService playerImportService = new PlayerImportService(playerService);
             IPokerService pokerService = new PokerService(pokerHandService, playerService, cardService);
 
             string filePath = Properties.Settings.Default.InputFile;

@@ -28,8 +28,9 @@ namespace PokerTest.Services
             {
                 throw new FormatException("Incorrect number of parameters.");
             }
-
+            
             SetPlayersCards(info);
+            SetPlayersHand();
             SortHand();
 
             return _player;
@@ -44,6 +45,7 @@ namespace PokerTest.Services
         private void SetPlayersCards(string[] info)
         {
             _player.Name = info[0];
+            _player.Hand = new Hand();
             _player.Hand.Cards = new List<Card>();
 
             for (int x = 1; x < info.Length; x++)
@@ -55,7 +57,6 @@ namespace PokerTest.Services
         private void SetPlayersHand()
         {
             _player.Hand = _pokerHandService.GetPokerHand(_player.Hand);
-
         }
 
         private void AddCard(string cardInfo)
