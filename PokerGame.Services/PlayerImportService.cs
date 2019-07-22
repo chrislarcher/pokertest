@@ -52,7 +52,6 @@ namespace PokerGame.Services
 
             try
             {
-
                 Player player = _playerService.GetPlayer(playerInfo);
                 _players.Add(player);
             }

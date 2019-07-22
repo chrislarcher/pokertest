@@ -48,6 +48,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardServiceTests.cs" />
+    <Compile Include="CardTypesServiceTests.cs" />
+    <Compile Include="PlayerImportServiceTests.cs" />
+    <Compile Include="PlayerServiceTest.cs" />
+    <Compile Include="PokerHandsTests.cs" />
     <Compile Include="PokerServiceHighestCardTest.cs" />
     <Compile Include="PokerServicePairTest.cs" />
     <Compile Include="PokerServiceThreeOfAKindTest.cs" />
@@ -66,6 +71,10 @@
       <Project>{f36ce8ba-15ed-47dd-874f-79521614ea68}</Project>
       <Name>PokerGame.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EmptyPlayerHand.txt" />
+    <Content Include="ValidPlayerHand.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
